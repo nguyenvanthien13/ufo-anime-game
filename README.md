@@ -1,36 +1,40 @@
-# UFO Anime – Hai Bạn May Mắn 🛸
+# UFO Anime V3 – Hai Bạn May Mắn 🛸
 
-Ứng dụng web chơi game UFO anime, chọn ngẫu nhiên **2 nhân vật khác nhau** từ danh sách tối đa **70 người**. Khi UFO hút hai nhân vật lên trời, màn hình hiện lời chúc mừng và hiệu ứng âm thanh.
+Ứng dụng web tĩnh (PWA), không cần Node.js hoặc npm.
 
 ## Chức năng
 
-- Nhập tên nhanh: mỗi dấu cách hoặc xuống dòng là một nhân vật.
-- Tạo danh sách mới hoặc thêm vào danh sách hiện tại.
-- Hoạt cảnh UFO, nhân vật anime, hiệu ứng hút lên trời.
-- Âm thanh, lời chúc mừng, chế độ toàn màn hình.
-- Lưu tên bằng `localStorage` trên thiết bị.
-- PWA hỗ trợ cài đặt và chơi offline sau lần truy cập đầu tiên.
+- Tối đa 70 nhân vật; nhập nhanh bằng dấu cách hoặc xuống dòng.
+- Nhân vật anime cùng kích thước, chạy hỗn loạn; UFO hút hai người ngẫu nhiên ở cuối.
+- Nhạc khi bắt đầu, âm thanh chúc mừng, bật/tắt tiếng.
+- Phóng to toàn màn hình; bấm vào vùng game để bắt đầu hoặc chơi lại.
+- Lưu tên trong localStorage; hỗ trợ offline sau khi tải lần đầu qua HTTPS/localhost.
 
-## Chạy trên máy tính
+## Chạy thử
 
-Có thể mở `index.html` trực tiếp trong trình duyệt để chơi. Để thử **cài đặt PWA** và service worker, cần chạy qua localhost:
+Mở `index.html` bằng Chrome/Edge. Để thử PWA trên localhost:
 
 ```bash
 python -m http.server 8080
 ```
 
-Sau đó mở `http://localhost:8080`.
+Mở `http://localhost:8080`.
 
-## Đưa lên GitHub Pages
+## Đăng GitHub Pages
 
-1. Tạo repository mới trên GitHub, ví dụ `ufo-anime-game`.
-2. Giải nén dự án này và tải **toàn bộ nội dung** lên thư mục gốc repository, bao gồm `.github/workflows/deploy.yml`.
-3. Trong **Settings → Pages → Build and deployment**, chọn **Source: GitHub Actions**.
-4. Đẩy thay đổi lên nhánh `main` (hoặc bấm **Actions → Deploy GitHub Pages → Run workflow**).
-5. Khi workflow thành công, mở `https://TEN-TAI-KHOAN.github.io/ufo-anime-game/` (thay tên tài khoản và repository thực tế).
+1. Tạo repository **Public** trên GitHub, ví dụ `ufo-anime-game`.
+2. Tải **nội dung bên trong** thư mục này lên **gốc** repository, giữ cả `.github/workflows/deploy.yml` và `.nojekyll`.
+3. Vào **Settings → Pages → Build and deployment → Source → GitHub Actions**. Cần bật Pages trước khi workflow chạy, nếu không bước `configure-pages` có thể báo `Get Pages site failed: Not Found`.
+4. Vào **Actions** chạy lại workflow `Deploy GitHub Pages`, hoặc commit lên `main`.
+5. Sau khi deploy thành công, mở `https://USERNAME.github.io/ufo-anime-game/`.
 
-> Nếu repository dùng nhánh khác `main`, đổi tên nhánh trong `.github/workflows/deploy.yml`.
+> Nếu workflow báo lỗi quyền truy cập, kiểm tra **Settings → Actions → General → Workflow permissions** và chính sách GitHub Pages của tài khoản/tổ chức.
 
-## Ghi chú kỹ thuật
+## Cấu trúc
 
-Ứng dụng dùng HTML, CSS và JavaScript thuần; không cần npm, backend hoặc API. Phối cảnh game là **đồ họa 3D mô phỏng bằng Canvas**, không phải mô hình 3D thực. Âm thanh trên trình duyệt có thể cần thao tác người dùng trước khi phát. Chế độ offline trên GitHub Pages chỉ sẵn sàng sau khi trang đã được mở thành công và lưu vào bộ nhớ đệm.
+- `index.html`: mã nguồn trò chơi.
+- `manifest.webmanifest`: metadata cài PWA.
+- `sw.js`: lưu cache để chơi offline.
+- `assets/icon.svg`: biểu tượng.
+- `.github/workflows/deploy.yml`: triển khai GitHub Pages.
+- `.nojekyll`: tắt xử lý Jekyll.
